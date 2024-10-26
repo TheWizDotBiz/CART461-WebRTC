@@ -6,6 +6,7 @@
 let otherVideo;
 let docInteract = false;
 let p5l;
+let p5lAudio;
 const testArray = [345.4534, 90123.13232322, 920923.2348754];
 
 document.addEventListener("click", function(){ //we get an error saying we cant do no fuckin streaming unless user interacts with webpage, just click to get the receiver started
@@ -22,6 +23,13 @@ function setup() {
   p5l = new p5LiveMedia(this, "other", other ,"CART498WRTC",streamFrom);
   p5l.on('stream', gotStream);
   p5l.on('data', gotData);
+/*
+  //this is for the audio stream coming from the receiver end to play on the sender end (so the user can talk through the remote camera thing)
+  //still working on implementing it
+  let constraints = {audio: true, video: false};
+  createCapture(constraints, function(stream){
+    p5lAudio = new p5LiveMedia(this, "CAPTURE", stream, "CART498WRTC");
+  })*/
 }
 
 function draw() {
