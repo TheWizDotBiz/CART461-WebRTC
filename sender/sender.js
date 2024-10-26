@@ -3,6 +3,7 @@
 // This is a test of the p5LiveMedia webrtc library and associated service.
 // Modified by seb to send only, go to https://editor.p5js.org/sebmorales/sketches/bEdJewJpJ to receive (only)
 //TO RUN THIS RUN A LIVE SERVER WITH VS CODE, THEN OPEN A WINDOW FOR SENDER.HTML AND A WINDOW FOR RECEIVER.HTML
+//TODO: check if audio is recorded and sent properly from and to both ends
 
 let myVideo;
 let p5lData;
@@ -14,8 +15,9 @@ function setup() {
     myVideo = createCapture(constraints, 
       function(stream) {
         let p5l = new p5LiveMedia(this, "CAPTURE", stream, "CART498WRTC",streamTo);
-        p5l.on('stream');
+        p5l.on('stream', gotStream);
         p5l.on('data', gotData);
+        //p5l.on('streamAudio');
       }
     );  
     myVideo.muted = true;     
@@ -29,10 +31,14 @@ function draw() {
   background(220);
   stroke(255);
   if (myVideo != null) {
-    image(myVideo,0,0,width,height);
+    //image(myVideo,0,0,width,height);
   }
 }
 
 function gotData(data, id){
   console.log("got data " + data + " from " + id);
+}
+
+function gotStream(stream, id){
+  console.log("got stream from " + id);
 }

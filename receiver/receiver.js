@@ -20,16 +20,18 @@ function setup() {
   createCanvas(600, 400);
   let streamFrom="https://p5livemedia.itp.io/" //REPLACE WITH LOCAL SERVER ADDRESS (OUR OWN)
   let other;// the elem has to be present but can be undifined (or CANVAS OR CAPTURE) 
-  p5l = new p5LiveMedia(this, "other", other ,"CART498WRTC",streamFrom);
-  p5l.on('stream', gotStream);
-  p5l.on('data', gotData);
-/*
-  //this is for the audio stream coming from the receiver end to play on the sender end (so the user can talk through the remote camera thing)
-  //still working on implementing it
+  //p5l = new p5LiveMedia(this, "other", other ,"CART498WRTC",streamFrom);
   let constraints = {audio: true, video: false};
   createCapture(constraints, function(stream){
-    p5lAudio = new p5LiveMedia(this, "CAPTURE", stream, "CART498WRTC");
-  })*/
+    p5l = new p5LiveMedia(this, "CAPTURE", stream, "CART498WRTC");
+    p5l.on('stream', gotStream);
+    p5l.on('data', gotData);
+  })
+  
+
+  //this is for the audio stream coming from the receiver end to play on the sender end (so the user can talk through the remote camera thing)
+  //still working on implementing it
+  
 }
 
 function draw() {
